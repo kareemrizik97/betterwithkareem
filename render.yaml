@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: kareem-rizik-coaching
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+    routes:
+      - type: rewrite
+        source: /book
+        destination: /book/index.html
+      - type: rewrite
+        source: /ig
+        destination: /ig/index.html
+      - type: rewrite
+        source: /thank-you
+        destination: /thank-you/index.html
+
