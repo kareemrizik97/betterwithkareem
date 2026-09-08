@@ -1,6 +1,9 @@
 (() => {
   const config = window.KAREEM_BOOKING_CONFIG || {};
   const currentParams = new URLSearchParams(window.location.search);
+  const track = (eventName, parameters = {}) => {
+    if (typeof window.kareemTrack === 'function') window.kareemTrack(eventName, parameters);
+  };
 
   document.querySelectorAll('[data-current-year]').forEach((element) => {
     element.textContent = String(new Date().getFullYear());
@@ -42,6 +45,11 @@
   }
 
   const scheduler = document.querySelector('[data-scheduler]');
+  if (window.location.pathname === '/thank-you/' && sessionStorage.getItem('kareem_booking_completed') === 'true') {
+    track('generate_lead', { lead_source: currentParams.get('utm_source') || 'booking' });
+    track('appointment_scheduled');
+    sessionStorage.removeItem('kareem_booking_completed');
+  }
   if (!scheduler) return;
 
   const bookingUrl = (config.bookingUrl || '').trim();
@@ -53,6 +61,7 @@
     scheduler.classList.add('scheduler--pending');
     if (fallback) fallback.hidden = false;
     if (schedulerStatus) schedulerStatus.textContent = 'The live booking calendar is being prepared.';
+    track('booking_unavailable');
     return;
   }
 
@@ -79,6 +88,7 @@
   if (config.provider !== 'calendly') {
     scheduler.innerHTML = `<a class="button button--primary" href="${schedulerUrl.href}" target="_blank" rel="noopener">Open the booking calendar <span aria-hidden="true">↗</span></a>`;
     if (schedulerStatus) schedulerStatus.textContent = 'Select a time and complete payment in the secure booking window.';
+    track('booking_calendar_ready', { booking_provider: config.provider || 'external' });
     return;
   }
 
@@ -95,12 +105,15 @@
       prefill: {},
       utm: Object.fromEntries(['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].map((key) => [key, currentParams.get(key) || '']))
     });
+    track('booking_calendar_ready', { booking_provider: 'calendly' });
   };
   document.head.appendChild(embedScript);
 
   if (config.redirectOnBooked) {
     window.addEventListener('message', (event) => {
       if (!event.origin.endsWith('calendly.com') || !event.data || event.data.event !== 'calendly.event_scheduled') return;
+      sessionStorage.setItem('kareem_booking_completed', 'true');
+      track('booking_completed', { booking_provider: 'calendly' });
       const next = new URL('/thank-you/', window.location.origin);
       ['utm_source', 'utm_medium', 'utm_campaign'].forEach((key) => {
         const value = currentParams.get(key);
@@ -110,4 +123,3 @@
     });
   }
 })();
-
