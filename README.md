@@ -14,6 +14,19 @@ A polished, responsive static website for Kareem Rizik’s coaching practice. It
 - Draft privacy and terms pages clearly marked for launch review
 - Render static-site configuration in `render.yaml`
 - Attribution preservation for Instagram / UTM parameters through to booking
+- Consent-based Google Analytics 4 integration with booking, campaign, FAQ, contact, social, and scroll-depth events
+- Search-ready canonical URLs, structured data, `robots.txt`, and `sitemap.xml`
+
+## Analytics and campaign links
+
+Set the GA4 Measurement ID in `assets/js/analytics-config.js`. Analytics loads only after the visitor grants consent; advertising personalization and Google Signals are disabled in the site configuration. Enhanced Measurement can be enabled in the GA4 web stream.
+
+Recommended profile links:
+
+- Instagram: `https://betterwithkareem.com/ig/?utm_source=instagram&utm_medium=social&utm_campaign=profile`
+- TikTok: `https://betterwithkareem.com/ig/?utm_source=tiktok&utm_medium=social&utm_campaign=profile`
+- X: `https://betterwithkareem.com/?utm_source=x&utm_medium=social&utm_campaign=profile`
+- LinkedIn: `https://betterwithkareem.com/?utm_source=linkedin&utm_medium=social&utm_campaign=profile`
 
 ## Turn on live scheduling and payment
 
