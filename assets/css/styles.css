@@ -488,3 +488,41 @@ h1 em, h2 em { font-style: italic; font-weight: 400; }
   .about-card { min-height: 23rem; }
   .about-card__quote { font-size: 1.95rem; }
 }
+
+/* Approved palette refinement */
+:root {
+  --ink: #1d4329;
+  --ink-soft: #31563d;
+  --forest: #285C35;
+  --forest-dark: #1d4329;
+  --pine: #fdfdfb;
+  --clay: #8f3c25;
+  --clay-pale: #f4e3da;
+}
+
+.section--soft .eyebrow { color: var(--forest); }
+
+.service-card--featured {
+  border-top: 4px solid var(--clay);
+  border-color: var(--line);
+  border-top-color: var(--clay);
+  background: #e5f0e7;
+}
+
+.service-card__label,
+.service-card--featured .service-card__label {
+  color: var(--forest-dark);
+  font-size: .67rem;
+}
+
+.service-card--featured .service-card__label { color: var(--clay); }
+
+.booking-cta { background: #e5f0e7; }
+
+@media (max-width: 860px) {
+  .service-card--featured {
+    padding: 2rem 1.25rem;
+    border-top: 4px solid var(--clay);
+    background: #e5f0e7;
+  }
+}
