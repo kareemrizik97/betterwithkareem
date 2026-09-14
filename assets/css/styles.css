@@ -526,3 +526,36 @@ h1 em, h2 em { font-style: italic; font-weight: 400; }
     background: #e5f0e7;
   }
 }
+
+/* Mobile sizing refinement */
+@media (max-width: 860px) {
+  .editorial-hero h1 {
+    font-size: clamp(3.5rem, 12.5vw, 5.25rem);
+    line-height: .92;
+  }
+
+  .portrait-panel,
+  .portrait-panel img {
+    min-height: min(34rem, 100vw);
+  }
+}
+
+@media (max-width: 560px) {
+  .editorial-hero h1 {
+    font-size: clamp(3rem, 13.5vw, 4.2rem);
+    line-height: .94;
+  }
+
+  .portrait-panel,
+  .portrait-panel img {
+    min-height: 26rem;
+  }
+
+  .split-heading h2 {
+    margin: 0 0 1.4rem;
+    font-size: clamp(2.8rem, 13.5vw, 3.85rem);
+    line-height: .96;
+  }
+
+  .split-heading__side { padding-top: 1.25rem; }
+}
