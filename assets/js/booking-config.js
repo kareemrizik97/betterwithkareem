@@ -17,6 +17,5 @@ window.KAREEM_BOOKING_CONFIG = {
   redirectOnBooked: true,
 
   // Update before launch. This is only used for visible contact links.
-  contactEmail: "hello@kareemrizik.com"
+  contactEmail: "betterwithkareem@outlook.com"
 };
-
